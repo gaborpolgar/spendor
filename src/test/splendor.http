@@ -1,0 +1,27 @@
+###
+GET http://localhost:8080/api/spendor/transactions
+Accept: application/json
+
+###
+POST http://localhost:8080/api/spendor/transactions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "szolgáltatás",
+  "amount": "5000",
+  "date": "2021-08-01T21:22:00",
+  "location": "thai massage"
+}
+
+###
+DELETE http://localhost:8080/api/spendor/transactions/3
+
+###
+PUT http://localhost:8080/api/spendor/transactions/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "nagybevásárlás"
+}
