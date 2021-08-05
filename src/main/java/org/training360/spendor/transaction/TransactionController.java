@@ -34,4 +34,9 @@ public class TransactionController {
         return transactionService.createTransaction(command);
     }
 
+    @PutMapping("/{id}")
+    public TransactionDto updateTransaction(@PathVariable("id") long id, @RequestBody UpdateTransCommand command) {
+        return transactionService.updateTransaction(id, command);
+    }
+
 }

@@ -28,5 +28,12 @@ public class TransactionService {
         return modelMapper.map(transaction, TransactionDto.class);
     }
 
+    @Transactional
+    public TransactionDto updateTransaction(long id, UpdateTransCommand command) {
+        Transaction transaction = repository.findById(id).orElseThrow(() -> new TransactionNotFoundException());
+        transaction.setName(command.getName());
+        return modelMapper.map(transaction, TransactionDto.class);
+    }
+
 
 }
