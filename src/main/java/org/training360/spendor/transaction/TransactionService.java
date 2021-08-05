@@ -35,5 +35,14 @@ public class TransactionService {
         return modelMapper.map(transaction, TransactionDto.class);
     }
 
+    public void deleteTransaction(long id) {
+        repository.deleteById(id);
+    }
+
+    public void deleteAllTransactions() {
+        repository.deleteAll();
+    }
+
+
 
 }

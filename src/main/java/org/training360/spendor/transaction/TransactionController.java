@@ -39,4 +39,11 @@ public class TransactionController {
         return transactionService.updateTransaction(id, command);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTransaction(@PathVariable("id") long id) {
+        transactionService.deleteTransaction(id);
+    }
+
+
 }
