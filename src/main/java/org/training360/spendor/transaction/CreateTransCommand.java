@@ -1,9 +1,8 @@
 package org.training360.spendor.transaction;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.apache.commons.lang3.builder.ToStringExclude;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +14,7 @@ public class CreateTransCommand {
     @Schema(description = "name of the transaction", example = "nagybevásárlás")
     private String name;
 
-    @Schema(description = "amount of the transaction/purchase", example = "10_000")
+    @Schema(description = "amount of the transaction/purchase", example = "10000")
     private Long amount;
 
     @Schema(description = "date of the transaction/purchase", example = "2021-03-01T22:00:00")

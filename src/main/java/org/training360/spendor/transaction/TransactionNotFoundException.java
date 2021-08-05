@@ -7,10 +7,10 @@ import java.net.URI;
 
 public class TransactionNotFoundException extends AbstractThrowableProblem {
 
-    public TransactionNotFoundException() {
+    public TransactionNotFoundException(long id) {
         super(URI.create("transactions/not-found"),
                 "Not found",
                 Status.NOT_FOUND,
-                "Transactions not found.");
+                String.format("Transaction with id %d not found.", id));
     }
 }

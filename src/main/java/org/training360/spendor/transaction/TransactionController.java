@@ -21,20 +21,27 @@ public class TransactionController {
     }
 
     @GetMapping
-    public List<TransactionDto> getTransactions() {
-        return transactionService.getTransactions();
+    public List<TransactionDto> listTransactions() {
+        return transactionService.listTransactions();
     }
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "create an transaction")
+    @Operation(summary = "Create an transaction", description = "Create an transaction.")
     @ApiResponse(responseCode = "201", description = "transaction has been created")
     public TransactionDto createTransaction(@RequestBody CreateTransCommand command) {
         return transactionService.createTransaction(command);
     }
 
+    @GetMapping("/{id}")
+    @Operation(summary = "get an transaction by id", description = "get an transaction by id.")
+    public TransactionDto getTransactionById(@PathVariable("id") long id) {
+        return transactionService.getTransactionById(id);
+    }
+
     @PutMapping("/{id}")
+    @Operation(summary = "update an transaction", description = "Update an transaction.")
+    @ApiResponse(responseCode = "404", description = "transaction not found")
     public TransactionDto updateTransaction(@PathVariable("id") long id, @RequestBody UpdateTransCommand command) {
         return transactionService.updateTransaction(id, command);
     }

@@ -16,7 +16,7 @@ public class TransactionService {
     TransactionRepository repository;
     ModelMapper modelMapper;
 
-    public List<TransactionDto> getTransactions() {
+    public List<TransactionDto> listTransactions() {
         return repository.findAll().stream()
                 .map(t -> modelMapper.map(t, TransactionDto.class))
                 .collect(Collectors.toList());
@@ -30,7 +30,7 @@ public class TransactionService {
 
     @Transactional
     public TransactionDto updateTransaction(long id, UpdateTransCommand command) {
-        Transaction transaction = repository.findById(id).orElseThrow(() -> new TransactionNotFoundException());
+        Transaction transaction = repository.findById(id).orElseThrow(() -> new TransactionNotFoundException(id));
         transaction.setName(command.getName());
         return modelMapper.map(transaction, TransactionDto.class);
     }
@@ -44,5 +44,8 @@ public class TransactionService {
     }
 
 
-
+    public TransactionDto getTransactionById(long id) {
+        Transaction transaction = repository.findById(id).orElseThrow(() -> new TransactionNotFoundException(id));
+        return modelMapper.map(transaction, TransactionDto.class);
+    }
 }
