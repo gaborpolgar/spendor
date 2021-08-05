@@ -22,5 +22,11 @@ public class TransactionService {
                 .collect(Collectors.toList());
     }
 
+    public TransactionDto createTransaction(CreateTransCommand command) {
+       Transaction transaction = new Transaction(command.getName(), command.getAmount(), command.getDate(), command.getLocation());
+        repository.save(transaction);
+        return modelMapper.map(transaction, TransactionDto.class);
+    }
+
 
 }

@@ -25,4 +25,13 @@ public class TransactionController {
         return transactionService.getTransactions();
     }
 
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "create an transaction")
+    @ApiResponse(responseCode = "201", description = "transaction has been created")
+    public TransactionDto createTransaction(@RequestBody CreateTransCommand command) {
+        return transactionService.createTransaction(command);
+    }
+
 }
