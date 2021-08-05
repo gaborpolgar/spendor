@@ -8,7 +8,7 @@ import java.net.URI;
 public class TransactionNotFoundException extends AbstractThrowableProblem {
 
     public TransactionNotFoundException(long id) {
-        super(URI.create("transactions/not-found"),
+        super(URI.create("api/spendor/transactions/not-found"),
                 "Not found",
                 Status.NOT_FOUND,
                 String.format("Transaction with id %d not found.", id));

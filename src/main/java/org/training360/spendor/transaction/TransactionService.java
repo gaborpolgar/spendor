@@ -39,11 +39,6 @@ public class TransactionService {
         repository.deleteById(id);
     }
 
-    public void deleteAllTransactions() {
-        repository.deleteAll();
-    }
-
-
     public TransactionDto getTransactionById(long id) {
         Transaction transaction = repository.findById(id).orElseThrow(() -> new TransactionNotFoundException(id));
         return modelMapper.map(transaction, TransactionDto.class);

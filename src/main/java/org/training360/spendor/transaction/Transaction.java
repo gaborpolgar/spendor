@@ -1,9 +1,10 @@
 package org.training360.spendor.transaction;
 
-import jdk.jfr.Name;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,6 +18,9 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+//    @NotBlank
+//    @NotNull
+    @Column(name = "transaction_name", nullable = false)
     private String name;
 
     private Long amount;

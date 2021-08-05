@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.jdbc.Sql;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -32,7 +36,6 @@ public class TransactionControllerIT {
         template.postForObject("/api/spendor/transactions", new CreateTransCommand("élelmiszer", 15000L,
                 LocalDateTime.of(2021, 8, 03, 8, 03), "lidl"), TransactionDto.class);
     }
-
 
     @Test
     void testDeleteTransaction() {
@@ -110,8 +113,35 @@ public class TransactionControllerIT {
                 .getBody();
 
         assertEquals("változás", expected.getName());
-
-
     }
+
+//    @Test
+//    void testCreateTransactionWithNullName() {
+//
+//        Problem expected = template.postForObject("/api/spendor/transactions", new CreateTransCommand(null, 200000L,
+//                LocalDateTime.of(2021, 7, 03, 8, 03), "edigital"), Problem.class);
+//
+//        assertEquals(Status.BAD_REQUEST, expected.getStatus());
+//    }
+
+    @Test
+    void testGetTransactionByNotExistId() {
+        long id = transaction.getId();
+
+        template.delete("/api/spendor/transactions/" + id);
+
+        Problem expected = template.exchange("/api/spendor/transactions/" + id,
+                HttpMethod.PUT,
+                new HttpEntity<>(new UpdateTransCommand("bírság")
+                ),
+                Problem.class)
+                .getBody();
+
+        assertEquals(Status.NOT_FOUND, expected.getStatus());
+        assertEquals("Transaction with id " + id + " not found.", expected.getDetail());
+        assertEquals("Not found", expected.getTitle());
+        assertEquals(URI.create("api/spendor/transactions/not-found"), expected.getType());
+    }
+
 }
 

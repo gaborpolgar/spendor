@@ -13,14 +13,14 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "szolgáltatás",
+  "name": "",
   "amount": "5000",
   "date": "2021-08-01T21:22:00",
   "location": "thai massage"
 }
 
 ###
-DELETE http://localhost:8080/api/spendor/transactions/3
+DELETE http://localhost:8080/api/spendor/transactions/10
 
 ###
 PUT http://localhost:8080/api/spendor/transactions/4
