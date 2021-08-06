@@ -38,4 +38,8 @@ public class ItemService {
                 .map(t -> modelMapper.map(t, ItemDto.class))
                 .collect(Collectors.toList());
     }
+
+    public void deleteItem(long id) {
+        itemRepository.deleteById(id);
+    }
 }
