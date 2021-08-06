@@ -16,9 +16,6 @@ public class TransactionDto {
 
     private Long id;
 
-    @NotEmpty
-    @NotNull
-    @NotBlank
     private String name;
 
     private Long amount;

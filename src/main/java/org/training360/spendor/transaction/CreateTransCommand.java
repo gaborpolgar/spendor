@@ -18,12 +18,10 @@ public class CreateTransCommand {
     private String name;
 
     @NotNull
-    @NotBlank
     @Schema(description = "amount of the transaction/purchase", example = "10000")
     private Long amount;
 
     @NotNull
-    @NotBlank
     @Schema(description = "date of the transaction/purchase", example = "2021-03-01T22:00:00")
     private LocalDateTime date;
 

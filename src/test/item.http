@@ -1,0 +1,17 @@
+###
+GET http://localhost:8080/api/spendor/items
+Accept: application/json
+
+###
+GET http://localhost:8080/api/spendor/items/1
+Accept: application/json
+
+###
+POST http://localhost:8080/api/spendor/items
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "kenyér",
+  "transaction_id": "1"
+}

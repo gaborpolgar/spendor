@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class TransactionService {
 
-    TransactionRepository repository;
-    ModelMapper modelMapper;
+    private TransactionRepository repository;
+    private ModelMapper modelMapper;
 
     public List<TransactionDto> listTransactions() {
         return repository.findAll().stream()

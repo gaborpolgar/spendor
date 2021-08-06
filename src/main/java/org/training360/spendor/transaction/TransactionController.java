@@ -33,7 +33,7 @@ public class TransactionController {
     @Operation(summary = "Create an transaction", description = "Create an transaction.")
     @ApiResponse(responseCode = "201", description = "transaction has been created")
     @ApiResponse(responseCode = "400", description = "Bad request, transaction cannot be created")
-    public TransactionDto createTransaction(@RequestBody CreateTransCommand command) {
+    public TransactionDto createTransaction(@Valid @RequestBody CreateTransCommand command) {
         return transactionService.createTransaction(command);
     }
 

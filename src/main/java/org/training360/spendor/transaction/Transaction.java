@@ -1,11 +1,13 @@
 package org.training360.spendor.transaction;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.training360.spendor.item.Item;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,8 +20,6 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @NotBlank
-//    @NotNull
     @Column(name = "transaction_name", nullable = false)
     private String name;
 
@@ -36,8 +36,7 @@ public class Transaction {
         this.location = location;
     }
 
-//    @ManyToOne
-//    private List<Item> items;
-
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "transaction")
+    private List<Item> items;
 
 }

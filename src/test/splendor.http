@@ -13,7 +13,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "",
+  "name": "vásárlás",
   "amount": "5000",
   "date": "2021-08-01T21:22:00",
   "location": "thai massage"

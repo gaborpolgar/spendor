@@ -17,10 +17,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(statements = "delete from transactions")
+@Sql(statements = "delete from items")
+
 public class TransactionControllerIT {
 
     TransactionDto transaction;
@@ -71,19 +74,17 @@ public class TransactionControllerIT {
                 TransactionDto.class)
                 .getBody();
 
-        assertEquals("elektronikai cikk", expected.getName());
-        assertEquals(200000L, transaction.getAmount());
-        assertEquals(LocalDateTime.of(2021, 7, 03, 8, 03), expected.getDate());
-        assertEquals("edigital", expected.getLocation());
+        assertAll(
+                () -> assertEquals("elektronikai cikk", expected.getName()),
+                () -> assertEquals(200000L, transaction.getAmount()),
+                () -> assertEquals(LocalDateTime.of(2021, 7, 03, 8, 03), expected.getDate()),
+                () -> assertEquals("edigital", expected.getLocation())
+        );
+
     }
 
     @Test
     void testListTransactions() {
-
-//        assertEquals("élelmiszer", transactionDto.getName());
-//        assertEquals(15000L, transactionDto.getAmount());
-//        assertEquals(LocalDateTime.of(2021, 8, 03, 8, 03), transactionDto.getDate());
-//        assertEquals("lidl", transactionDto.getLocation());
 
         List<TransactionDto> result = template.exchange("/api/spendor/transactions",
                 HttpMethod.GET,
@@ -115,14 +116,14 @@ public class TransactionControllerIT {
         assertEquals("változás", expected.getName());
     }
 
-//    @Test
-//    void testCreateTransactionWithNullName() {
-//
-//        Problem expected = template.postForObject("/api/spendor/transactions", new CreateTransCommand(null, 200000L,
-//                LocalDateTime.of(2021, 7, 03, 8, 03), "edigital"), Problem.class);
-//
-//        assertEquals(Status.BAD_REQUEST, expected.getStatus());
-//    }
+    @Test
+    void testCreateTransactionWithNullName() {
+
+        Problem expected = template.postForObject("/api/spendor/transactions", new CreateTransCommand(null, 200000L,
+                LocalDateTime.of(2021, 7, 03, 8, 03), "edigital"), Problem.class);
+
+        assertEquals(Status.BAD_REQUEST, expected.getStatus());
+    }
 
     @Test
     void testGetTransactionByNotExistId() {
